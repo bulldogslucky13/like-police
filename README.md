@@ -8,7 +8,8 @@ The following command table is all of the current commands for LikePolice. The B
 
 | Action | Command Options | Providable Options | Example |
 |:---:|:---:|:---:|:---:|
-| remind after a given duration (in whole minutes) | `remind`, `stalk`, `stake out`, `get on it` | Time (in whole minutes, eg. 60) <br /> `defaut = 10` | `@LikePolice, remind me to check these texts in 10`
+| Remind a given duration (in whole minutes) | `remind`, `stalk`, `stake out`, `get on it` | Time (in whole minutes, eg. 60) <br /> `defaut = 30` | `@LikePolice, remind me to check these texts in 10`
+| Cancel all active reminders | `cancel` | <em>none</em> | `@LikePolice cancel all active reminders` |
 
 ## Known Limitations
 - For now, all reminders must be under 60 minutes (anything over 60 minutes will remind you in 60 minutes)
