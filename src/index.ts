@@ -25,18 +25,32 @@ app.post(
     try {
       const body: GroupMeResponseType = req.body;
       if (body.sender_type === "user" && body.text.match(/(@LikePolice)/gm)) {
-        // tslint:disable-next-line:no-console
-        console.error(body.sender_id);
-        const command = body.text.split("@LikePolice")[1];
-        const commandResult = likePolice.determineCommand(command);
-        const messageResult = await axios.post(
-          `https://api.groupme.com/v3/bots/post`,
-          {
+        const approvedSenders = process.env.APPROVED_SENDERS.split(",");
+
+        if (approvedSenders.length < 1) {
+          await axios.post(`https://api.groupme.com/v3/bots/post`, {
             bot_id: process.env.BOT_ID,
-            text: commandResult,
-          }
-        );
-        res.statusCode = messageResult.status;
+            text: "LikePolice is not configured!",
+          });
+        } // tslint:disable-next-line:no-console
+        console.log(`${approvedSenders[0]} - ${body.sender_id}`);
+        if (!approvedSenders.includes(body.sender_id)) {
+          await axios.post(`https://api.groupme.com/v3/bots/post`, {
+            bot_id: process.env.BOT_ID,
+            text: "Leave me alone, peasant.",
+          });
+        } else {
+          const command = body.text.split("@LikePolice")[1];
+          const commandResult = likePolice.determineCommand(command);
+          const messageResult = await axios.post(
+            `https://api.groupme.com/v3/bots/post`,
+            {
+              bot_id: process.env.BOT_ID,
+              text: commandResult,
+            }
+          );
+          res.statusCode = messageResult.status;
+        }
       }
     } catch (error) {
       res.statusCode = 500;
