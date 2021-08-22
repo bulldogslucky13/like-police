@@ -18,7 +18,7 @@ app.get("/", (req: express.Request, res: express.Response) => {
 });
 
 const determineCommand = (command: string) => {
-  if (command.match(/remind/gm)) {
+  if (command.match(/(remind|get on it)/gm)) {
     // tslint:disable-next-line:no-console
     const splitOnTime = command.split(/(\d+)/gm);
     return `I'll remind you in ${
