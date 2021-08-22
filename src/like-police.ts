@@ -1,6 +1,6 @@
 class LikePolice {
   determineCommand = (command: string) => {
-    if (command.match(/(remind|get on it)/gm)) {
+    if (command.match(/(remind|stalk|stake out|get on it)/gm)) {
       const splitOnTime = command.split(/(\d+)/gm);
       // TODO: add command to be run
       return `I'll remind you in ${
