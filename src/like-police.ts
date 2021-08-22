@@ -47,7 +47,7 @@ class LikePolice {
       const timeToRemind = this.determineRemindTime(splitOnTime);
       this.scheduleReminder(senderId, timeToRemind);
       return `I'll remind you in ${timeToRemind} minute${
-        timeToRemind > 1 && "s"
+        timeToRemind > 1 ? "s" : ""
       }, sir`;
     }
     return "Come again, sir?";

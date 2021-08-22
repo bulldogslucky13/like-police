@@ -29,9 +29,9 @@ app.post(
         body.text.match(/(@Like ?Police)/gim)
       ) {
         if (await likePolice.isApprovedSender(body.sender_id)) {
-          const command = body.text.split("@LikePolice")[1];
+          const command = body.text.split(/(@Like ?Police)/gim);
           const commandResult = likePolice.determineCommand(
-            command,
+            command[command.length - 1],
             body.sender_id
           );
           const messageResult = await axios.post(
