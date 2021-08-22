@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== "production") {
 
 app.use(express.static("public"), express.json());
 
-app.get("/", (req, res) => {
+app.get("/", (req: express.Request, res: express.Response) => {
   res.statusCode = 302;
   res.setHeader("Location", "https://cameronbristol.xyz");
   return res.end();
