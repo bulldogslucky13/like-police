@@ -32,8 +32,7 @@ app.post(
             bot_id: process.env.BOT_ID,
             text: "LikePolice is not configured!",
           });
-        } // tslint:disable-next-line:no-console
-        console.log(`${approvedSenders[0]} - ${body.sender_id}`);
+        }
         if (!approvedSenders.includes(body.sender_id)) {
           await axios.post(`https://api.groupme.com/v3/bots/post`, {
             bot_id: process.env.BOT_ID,
