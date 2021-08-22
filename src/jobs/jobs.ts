@@ -9,7 +9,7 @@ class Jobs {
         text: "That should be enough time, sir.",
       });
       // tslint:disable-next-line:no-console
-      console.log(`Time to schedule something for ${senderId}`);
+      console.log(`Ran a remind message for ${senderId}`);
     });
   };
 }
