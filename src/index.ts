@@ -28,9 +28,12 @@ app.post(
         body.sender_type === "user" &&
         body.text.match(/(@Like ?Police)/gim)
       ) {
-        if (likePolice.isApprovedSender(body.sender_id)) {
+        if (await likePolice.isApprovedSender(body.sender_id)) {
           const command = body.text.split("@LikePolice")[1];
-          const commandResult = likePolice.determineCommand(command);
+          const commandResult = likePolice.determineCommand(
+            command,
+            body.sender_id
+          );
           const messageResult = await axios.post(
             `https://api.groupme.com/v3/bots/post`,
             {

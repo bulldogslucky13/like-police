@@ -12,10 +12,10 @@ Content-Type: application/json
   "group_id": "1234567890",
   "id": "1234567890",
   "name": "John",
-  "sender_id": "12345",
+  "sender_id": "3740688",
   "sender_type": "user",
   "source_guid": "GUID",
   "system": false,
-  "text": "Hello world ☃☃ @LikePolice remind me to watch this in 20",
+  "text": "Hello world ☃☃ @LikePolice remind me to watch this in 1",
   "user_id": "1234567890"
 }
