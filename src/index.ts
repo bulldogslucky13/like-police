@@ -25,6 +25,7 @@ app.post(
     try {
       const body: GroupMeResponseType = req.body;
       if (body.sender_type === "user" && body.text.match(/(@LikePolice)/gm)) {
+        // tslint:disable-next-line:no-console
         console.error(body.sender_id);
         const command = body.text.split("@LikePolice")[1];
         const commandResult = likePolice.determineCommand(command);
