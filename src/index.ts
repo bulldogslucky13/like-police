@@ -4,6 +4,7 @@ const app = express();
 import dotenv from "dotenv";
 import { GroupMeResponseType } from "./types";
 import { newMessageMid } from "./middleware/new-message-mid";
+import { likePolice } from "./like-police";
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -17,17 +18,6 @@ app.get("/", (req: express.Request, res: express.Response) => {
   return res.end();
 });
 
-const determineCommand = (command: string) => {
-  if (command.match(/(remind|get on it)/gm)) {
-    // tslint:disable-next-line:no-console
-    const splitOnTime = command.split(/(\d+)/gm);
-    return `I'll remind you in ${
-      splitOnTime.length === 1 ? process.env.DEFAULT_REMIND : splitOnTime[1]
-    } minutes, sir`;
-  }
-  return "Come again?";
-};
-
 app.post(
   "/new-message",
   newMessageMid,
@@ -35,8 +25,9 @@ app.post(
     try {
       const body: GroupMeResponseType = req.body;
       if (body.sender_type === "user" && body.text.match(/(@LikePolice)/gm)) {
+        console.error(body.sender_id);
         const command = body.text.split("@LikePolice")[1];
-        const commandResult = determineCommand(command);
+        const commandResult = likePolice.determineCommand(command);
         const messageResult = await axios.post(
           `https://api.groupme.com/v3/bots/post`,
           {
