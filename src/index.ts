@@ -36,12 +36,15 @@ app.post(
   async (req: express.Request, res: express.Response) => {
     try {
       const body: GroupMeResponseType = req.body;
-      if (body.sender_type === "user") {
+      if (
+        body.sender_type === "user" &&
+        body.text.match(/(@LikePolice remind)/gm)
+      ) {
         const messageResult = await axios.post(
           `https://api.groupme.com/v3/bots/post`,
           {
             bot_id: process.env.BOT_ID,
-            text: `${body.name} said ${body.text}`,
+            text: `On it, sir.`,
           }
         );
         res.statusCode = messageResult.status;

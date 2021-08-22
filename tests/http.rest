@@ -16,6 +16,6 @@ Content-Type: application/json
   "sender_type": "user",
   "source_guid": "GUID",
   "system": false,
-  "text": "Hello world ☃☃",
+  "text": "Hello world ☃☃ @LikePolice remind me to watch this",
   "user_id": "1234567890"
 }
