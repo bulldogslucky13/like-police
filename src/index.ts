@@ -3,7 +3,7 @@ import axios from "axios";
 const app = express();
 import dotenv from "dotenv";
 import { GroupMeResponseType } from "./types";
-import { GroupMeNewTextSchema } from "./schemas/schemas";
+import { newMessageMid } from "./middleware/new-message-mid";
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -17,17 +17,15 @@ app.get("/", (req: express.Request, res: express.Response) => {
   return res.end();
 });
 
-const newMessageMid = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  try {
-    await GroupMeNewTextSchema.validateAsync(req.body);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+const determineCommand = (command: string) => {
+  if (command.match(/remind/gm)) {
+    // tslint:disable-next-line:no-console
+    const splitOnTime = command.split(/(\d+)/gm);
+    return `I'll remind you in ${
+      splitOnTime.length === 1 ? process.env.DEFAULT_REMIND : splitOnTime[1]
+    } minutes, sir`;
   }
-  next();
+  return "Come again?";
 };
 
 app.post(
@@ -36,15 +34,14 @@ app.post(
   async (req: express.Request, res: express.Response) => {
     try {
       const body: GroupMeResponseType = req.body;
-      if (
-        body.sender_type === "user" &&
-        body.text.match(/(@LikePolice remind)/gm)
-      ) {
+      if (body.sender_type === "user" && body.text.match(/(@LikePolice)/gm)) {
+        const command = body.text.split("@LikePolice")[1];
+        const commandResult = determineCommand(command);
         const messageResult = await axios.post(
           `https://api.groupme.com/v3/bots/post`,
           {
             bot_id: process.env.BOT_ID,
-            text: `On it, sir.`,
+            text: commandResult,
           }
         );
         res.statusCode = messageResult.status;
