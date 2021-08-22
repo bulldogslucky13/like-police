@@ -37,7 +37,8 @@ app.post(
     try {
       const body: GroupMeResponseType = req.body;
 
-      // tslint:disable-next-line:no-consoleconsole.log(body);
+      // tslint:disable-next-line:no-console
+      console.error(body);
       const messageResult = await axios.post(
         `https://api.groupme.com/v3/bots/post`,
         {
