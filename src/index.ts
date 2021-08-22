@@ -22,7 +22,11 @@ const newMessageMid = async (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  await GroupMeNewTextSchema.validateAsync(req.body);
+  try {
+    await GroupMeNewTextSchema.validateAsync(req.body);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
   next();
 };
 
@@ -32,6 +36,7 @@ app.post(
   async (req: express.Request, res: express.Response) => {
     try {
       const body: GroupMeResponseType = req.body;
+      console.log(body);
       const messageResult = await axios.post(
         `https://api.groupme.com/v3/bots/post`,
         {
@@ -42,7 +47,7 @@ app.post(
       res.statusCode = messageResult.status;
     } catch (error) {
       res.statusCode = 500;
-      res.json({ message: error.message });
+      res.json({ message: error });
     }
     return res.end();
   }
