@@ -4,8 +4,16 @@ const app = express();
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
+  res.statusCode = 302;
+  res.setHeader("Location", "https://cameronbristol.xyz");
+  return res.end();
+});
+
+app.post("/new-message", (req, res) => {
   // tslint:disable-next-line:no-console
-  res.send("<h1>Hello from your Express.JS Server!</h1>");
+  console.log("Received a new message!");
+  res.statusCode = 200;
+  return res.end();
 });
 
 // tslint:disable-next-line:no-console
