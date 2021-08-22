@@ -36,17 +36,16 @@ app.post(
   async (req: express.Request, res: express.Response) => {
     try {
       const body: GroupMeResponseType = req.body;
-
-      // tslint:disable-next-line:no-console
-      console.error(body);
-      const messageResult = await axios.post(
-        `https://api.groupme.com/v3/bots/post`,
-        {
-          bot_id: process.env.BOT_ID,
-          text: `${body.name} said ${body.text}`,
-        }
-      );
-      res.statusCode = messageResult.status;
+      if (body.sender_type === "user") {
+        const messageResult = await axios.post(
+          `https://api.groupme.com/v3/bots/post`,
+          {
+            bot_id: process.env.BOT_ID,
+            text: `${body.name} said ${body.text}`,
+          }
+        );
+        res.statusCode = messageResult.status;
+      }
     } catch (error) {
       res.statusCode = 500;
       res.json({ message: error });
