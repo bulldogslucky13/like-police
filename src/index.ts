@@ -28,20 +28,7 @@ app.post(
         body.sender_type === "user" &&
         body.text.match(/(@Like ?Police)/gim)
       ) {
-        const approvedSenders = process.env.APPROVED_SENDERS.split(",");
-
-        if (approvedSenders.length < 1) {
-          await axios.post(`https://api.groupme.com/v3/bots/post`, {
-            bot_id: process.env.BOT_ID,
-            text: "LikePolice is not configured!",
-          });
-        }
-        if (!approvedSenders.includes(body.sender_id)) {
-          await axios.post(`https://api.groupme.com/v3/bots/post`, {
-            bot_id: process.env.BOT_ID,
-            text: "Leave me alone, peasant.",
-          });
-        } else {
+        if (likePolice.isApprovedSender(body.sender_id)) {
           const command = body.text.split("@LikePolice")[1];
           const commandResult = likePolice.determineCommand(command);
           const messageResult = await axios.post(
