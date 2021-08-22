@@ -52,5 +52,4 @@ app.post(
   }
 );
 
-// tslint:disable-next-line:no-console
 app.listen(process.env.PORT || 8080, () => console.log("Run that server!"));

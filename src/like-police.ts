@@ -42,6 +42,10 @@ class LikePolice {
   };
 
   determineCommand = (command: string, senderId: string) => {
+    if (command.match(/(cancel)/gim)) {
+      sendingJobs.cancelAllReminds();
+      return `All future reminders are cancelled`;
+    }
     if (command.match(/(remind|stalk|stake out|get on it)/gim)) {
       const splitOnTime = command.split(/(\d+)/gm);
       const timeToRemind = this.determineRemindTime(splitOnTime);

@@ -8,9 +8,13 @@ class Jobs {
         bot_id: process.env.BOT_ID,
         text: "That should be enough time, sir.",
       });
-      // tslint:disable-next-line:no-console
       console.log(`Ran a remind message for ${senderId}`);
     });
+  };
+
+  cancelAllReminds = () => {
+    for (const job in schedule.scheduledJobs) schedule.cancelJob(job);
+    console.log("Successfully cancelled all jobs!");
   };
 }
 
