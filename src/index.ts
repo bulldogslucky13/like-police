@@ -36,7 +36,8 @@ app.post(
   async (req: express.Request, res: express.Response) => {
     try {
       const body: GroupMeResponseType = req.body;
-      console.log(body);
+
+      // tslint:disable-next-line:no-consoleconsole.log(body);
       const messageResult = await axios.post(
         `https://api.groupme.com/v3/bots/post`,
         {
