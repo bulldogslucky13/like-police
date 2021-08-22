@@ -24,7 +24,10 @@ app.post(
   async (req: express.Request, res: express.Response) => {
     try {
       const body: GroupMeResponseType = req.body;
-      if (body.sender_type === "user" && body.text.match(/(@LikePolice)/gm)) {
+      if (
+        body.sender_type === "user" &&
+        body.text.match(/(@Like ?Police)/gim)
+      ) {
         const approvedSenders = process.env.APPROVED_SENDERS.split(",");
 
         if (approvedSenders.length < 1) {
