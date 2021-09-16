@@ -10,11 +10,10 @@ class Jobs {
       );
       const favoritedIds: string[] =
         axiosResponse.data.response.message.favorited_by;
-      const missingIds = arrayOfUserIdsToCheck.map((currentId) => {
+      return arrayOfUserIdsToCheck.map((currentId) => {
         if (!favoritedIds.includes(currentId)) return currentId;
         return;
       });
-      console.log(missingIds);
     } catch (error) {
       console.log(error.message);
     }
@@ -31,6 +30,7 @@ class Jobs {
       newDateObj,
       async () => {
         const response = await this.checkWhoHasntLiked(groupId, messageId);
+        console.log(`Missing IDs: `);
         console.log(response);
         axios.post(`https://api.groupme.com/v3/bots/post`, {
           bot_id: process.env.BOT_ID,

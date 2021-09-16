@@ -162,6 +162,12 @@ export const usersToCheck: Record<string, GroupMeUserCondensed> = {
     id: "683637689",
     name: "Will Rhodes",
   },
+  "3740688": {
+    user_id: "3740688",
+    nickname: "Cameron Bristol",
+    id: "683637693",
+    name: "Cameron Bristol",
+  },
   "48881998": {
     user_id: "48881998",
     nickname: "Luke Robeson",
