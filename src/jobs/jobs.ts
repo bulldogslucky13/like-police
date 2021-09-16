@@ -43,7 +43,7 @@ class Jobs {
           const responseText = "Oh hell nah. We're missing:";
           let currentIndex = responseText.length;
           response.forEach((missingId) => {
-            const nicknameLength = usersToCheck[missingId].nickname.length;
+            const nicknameLength = usersToCheck[missingId].nickname.length + 2;
             loci.push([currentIndex, nicknameLength]);
             userIds.push(missingId);
             currentIndex += nicknameLength + 2;
