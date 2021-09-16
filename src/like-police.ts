@@ -26,11 +26,12 @@ class LikePolice {
   private scheduleReminder = (
     senderId: string,
     remindIn: number,
+    groupId: string,
     messageId: string
   ) => {
     const currentDate = new Date();
     const newDateObj = moment(currentDate).add(remindIn, "m").toDate();
-    sendingJobs.remindMessage(newDateObj, senderId, messageId);
+    sendingJobs.remindMessage(newDateObj, senderId, groupId, messageId);
   };
 
   private determineRemindTime = (splitOnTime: string[]) => {
@@ -62,7 +63,12 @@ class LikePolice {
     return true;
   };
 
-  determineCommand = (command: string, senderId: string, messageId: string) => {
+  determineCommand = (
+    command: string,
+    senderId: string,
+    groupId: string,
+    messageId: string
+  ) => {
     if (command.match(/(cancel|stop)/gim)) {
       sendingJobs.cancelAllReminds();
       return `All future reminders are cancelled`;
@@ -70,7 +76,7 @@ class LikePolice {
     if (command.match(/(remind|stalk|stake out|get on it)/gim)) {
       const splitOnTime = command.split(/(\d+)/gm);
       const timeToRemind = this.determineRemindTime(splitOnTime);
-      this.scheduleReminder(senderId, timeToRemind, messageId);
+      this.scheduleReminder(senderId, timeToRemind, groupId, messageId);
       return `I'll remind you in ${timeToRemind} minute${
         timeToRemind > 1 ? "s" : ""
       }, sir`;

@@ -2,10 +2,13 @@ import schedule from "node-schedule";
 import axios from "axios";
 
 class Jobs {
-  private checkWhoHasntLiked = async (messageId: string) => {
+  private checkWhoHasntLiked = async (groupId: string, messageId: string) => {
     try {
+      console.log(
+        `https://api.groupme.com/v3/groups/${groupId}/messages/${messageId}?token=${process.env.GROUPME_SECRET}`
+      );
       const axiosResponse = await axios.get(
-        `https://api.groupme.com/v3/groups/70651082/messages/${messageId}?token=${process.env.GROUPME_SECRET}`
+        `https://api.groupme.com/v3/groups/${groupId}/messages/${messageId}?token=${process.env.GROUPME_SECRET}`
       );
       return axiosResponse.data;
     } catch (error) {
@@ -13,12 +16,17 @@ class Jobs {
     }
   };
 
-  remindMessage = (newDateObj: Date, senderId: string, messageId: string) => {
+  remindMessage = (
+    newDateObj: Date,
+    senderId: string,
+    groupId: string,
+    messageId: string
+  ) => {
     schedule.scheduleJob(
       `Message tracker for ${senderId}`,
       newDateObj,
       async () => {
-        const response = await this.checkWhoHasntLiked(messageId);
+        const response = await this.checkWhoHasntLiked(groupId, messageId);
         console.log(response);
         axios.post(`https://api.groupme.com/v3/bots/post`, {
           bot_id: process.env.BOT_ID,

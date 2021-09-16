@@ -33,6 +33,7 @@ app.post(
           const commandResult = likePolice.determineCommand(
             command[command.length - 1],
             body.sender_id,
+            body.group_id,
             body.id
           );
           // const messageResult = await axios.post(
