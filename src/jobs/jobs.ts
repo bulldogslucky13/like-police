@@ -7,7 +7,7 @@ class Jobs {
       const axiosResponse = await axios.get(
         `https://api.groupme.com/v3/groups/70651082/messages/${messageId}?token=${process.env.GROUPME_SECRET}`
       );
-      return axiosResponse;
+      return axiosResponse.data;
     } catch (error) {
       console.log(error.message);
     }
@@ -19,7 +19,7 @@ class Jobs {
       newDateObj,
       async () => {
         const response = await this.checkWhoHasntLiked(messageId);
-        console.log(response.data);
+        console.log(response);
         axios.post(`https://api.groupme.com/v3/bots/post`, {
           bot_id: process.env.BOT_ID,
           text: "That should be enough time, sir.",
