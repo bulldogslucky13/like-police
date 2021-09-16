@@ -46,7 +46,7 @@ class Jobs {
             const nicknameLength = usersToCheck[missingId].nickname.length + 2;
             loci.push([currentIndex, nicknameLength]);
             userIds.push(missingId);
-            currentIndex += nicknameLength + 2;
+            currentIndex += nicknameLength + 1;
           });
           axios.post(`https://api.groupme.com/v3/bots/post`, {
             bot_id: process.env.BOT_ID,
