@@ -20,7 +20,8 @@ class LikePolice {
     "Not sure who you think you are but leave me alone.",
     "Leave me alone, peasant.",
     "Someone come get this guy. I'm not sure who he thinks he is...",
-    "Hey- fuck face. Get outta here",
+    "Lol. Good one. Who is that?",
+    "Fuck off",
   ];
 
   private scheduleReminder = (
@@ -52,7 +53,9 @@ class LikePolice {
       if (!this.approvedSenders.includes(senderId)) {
         await axios.post(`https://api.groupme.com/v3/bots/post`, {
           bot_id: process.env.BOT_ID,
-          text: "Leave me alone, peasant.",
+          text: this.peasantResponse[
+            Math.round(Math.random() * (this.peasantResponse.length - 1))
+          ],
         });
         return false;
       }
@@ -69,11 +72,12 @@ class LikePolice {
     groupId: string,
     messageId: string
   ) => {
+    console.log(command);
     if (command.match(/(cancel|stop)/gim)) {
       sendingJobs.cancelAllReminds();
       return `All future reminders are cancelled`;
     }
-    if (command.match(/(remind|stalk|stake out|get on it)/gim)) {
+    if (command.match(/(remind|stalk|stake out|get on it|\^)/gim)) {
       const splitOnTime = command.split(/(\d+)/gm);
       const timeToRemind = this.determineRemindTime(splitOnTime);
       this.scheduleReminder(senderId, timeToRemind, groupId, messageId);
@@ -81,8 +85,12 @@ class LikePolice {
         timeToRemind > 1 ? "s" : ""
       }, sir`;
     }
+    if (command.match(/(hello|hi|greetings)/gim)) {
+      return "Hello, sir.";
+    }
+    console.log("here");
     return this.confusedResponses[
-      Math.random() * this.confusedResponses.length - 1
+      Math.round(Math.random() * (this.confusedResponses.length - 1))
     ];
   };
 }

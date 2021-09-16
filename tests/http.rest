@@ -12,7 +12,7 @@ Content-Type: application/json
   "group_id": "1234567890",
   "id": "1234567890",
   "name": "John",
-  "sender_id": "3740688",
+  "sender_id": "37406888",
   "sender_type": "user",
   "source_guid": "GUID",
   "system": false,
@@ -32,10 +32,30 @@ Content-Type: application/json
   "group_id": "1234567890",
   "id": "1234567890",
   "name": "John",
-  "sender_id": "3740688",
+  "sender_id": "37406888",
   "sender_type": "user",
   "source_guid": "GUID",
   "system": false,
   "text": "@LikePolice cancel all of my reminders",
+  "user_id": "1234567890"
+}
+
+###
+
+POST http://localhost:8080/new-message
+Content-Type: application/json
+
+{
+  "attachments": [],
+  "avatar_url": "https://i.groupme.com/123456789",
+  "created_at": 1302623328,
+  "group_id": "1234567890",
+  "id": "1234567890",
+  "name": "John",
+  "sender_id": "3740688",
+  "sender_type": "user",
+  "source_guid": "GUID",
+  "system": false,
+  "text": "@LikePolice hellsdjhsgdhg!",
   "user_id": "1234567890"
 }

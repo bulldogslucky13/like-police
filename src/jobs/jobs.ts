@@ -38,8 +38,8 @@ class Jobs {
             text: "Looks like they did it this time, sir.",
           });
         } else {
-          let loci: number[][] = [];
-          let userIds: string[] = [];
+          const loci: number[][] = [];
+          const userIds: string[] = [];
           const responseText = "Oh hell nah. We're missing:";
           let currentIndex = responseText.length;
           response.forEach((missingId) => {
