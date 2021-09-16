@@ -32,8 +32,19 @@ app.post(
           const command = body.text.split(/(@Like ?Police)/gim);
           const commandResult = likePolice.determineCommand(
             command[command.length - 1],
-            body.sender_id
+            body.sender_id,
+            body.id
           );
+          // const messageResult = await axios.post(
+          //   `https://api.groupme.com/v3/bots/post`,
+          //   {
+          //     bot_id: process.env.BOT_ID,
+          //     text: `@Gavin Yates let's see...`,
+          //     attachments: [
+          //       { loci: [[0, 12]], type: "mentions", user_ids: ["66562336"] },
+          //     ],
+          //   }
+          // );
           const messageResult = await axios.post(
             `https://api.groupme.com/v3/bots/post`,
             {
