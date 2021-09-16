@@ -38,11 +38,24 @@ class Jobs {
             text: "Looks like they did it this time, sir.",
           });
         } else {
+          let loci = [];
+          let userIds = [];
+          const responseText = "Oh hell nah. We're missing: ";
+          let currentIndex = responseText.length;
+          response.forEach((missingId) => {
+            const nicknameLength = usersToCheck[missingId].nickname.length;
+            loci.push(currentIndex, [nicknameLength]);
+            userIds.push(missingId);
+            currentIndex += nicknameLength;
+          });
           axios.post(`https://api.groupme.com/v3/bots/post`, {
             bot_id: process.env.BOT_ID,
             text: `Oh hell nah. We're missing: ${response.map(
               (missingId) => `@${usersToCheck[missingId].nickname}, `
             )}`,
+            //attachments: [
+            //       { loci: [[0, 12]], type: "mentions", user_ids: ["66562336"] },
+            //     ],
           });
         }
         console.log(`Ran a remind message for ${senderId}`);
