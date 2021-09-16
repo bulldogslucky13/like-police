@@ -11,10 +11,27 @@ if (process.env.NODE_ENV !== "production") {
 class LikePolice {
   private approvedSenders = process.env.APPROVED_SENDERS.split(",");
 
-  private scheduleReminder = (senderId: string, remindIn: number) => {
+  private confusedResponses = [
+    "Come again, sir?",
+    "I'm sorry?",
+    "Sorry, I don't know that command.",
+  ];
+
+  private peasantResponse = [
+    "Not sure who you think you are but leave me alone.",
+    "Leave me alone, peasant.",
+    "Someone come get this guy. I'm not sure who he thinks he is...",
+    "Hey- fuck face. Get outta here",
+  ];
+
+  private scheduleReminder = (
+    senderId: string,
+    remindIn: number,
+    messageId: string
+  ) => {
     const currentDate = new Date();
     const newDateObj = moment(currentDate).add(remindIn, "m").toDate();
-    sendingJobs.remindMessage(newDateObj, senderId);
+    sendingJobs.remindMessage(newDateObj, senderId, messageId);
   };
 
   private determineRemindTime = (splitOnTime: string[]) => {
@@ -41,20 +58,22 @@ class LikePolice {
     return true;
   };
 
-  determineCommand = (command: string, senderId: string) => {
-    if (command.match(/(cancel)/gim)) {
+  determineCommand = (command: string, senderId: string, messageId: string) => {
+    if (command.match(/(cancel|stop)/gim)) {
       sendingJobs.cancelAllReminds();
       return `All future reminders are cancelled`;
     }
     if (command.match(/(remind|stalk|stake out|get on it)/gim)) {
       const splitOnTime = command.split(/(\d+)/gm);
       const timeToRemind = this.determineRemindTime(splitOnTime);
-      this.scheduleReminder(senderId, timeToRemind);
+      this.scheduleReminder(senderId, timeToRemind, messageId);
       return `I'll remind you in ${timeToRemind} minute${
         timeToRemind > 1 ? "s" : ""
       }, sir`;
     }
-    return "Come again, sir?";
+    return this.confusedResponses[
+      Math.random() * this.confusedResponses.length - 1
+    ];
   };
 }
 
