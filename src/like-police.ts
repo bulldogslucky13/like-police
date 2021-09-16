@@ -85,7 +85,11 @@ class LikePolice {
         timeToRemind > 1 ? "s" : ""
       }, sir`;
     }
-    if (command.match(/(hello|hi|greetings)/gim)) {
+    if (
+      command.match(
+        /(hello|hi|greetings|hey|what\'?s up|waddup|what\'?s good)/gim
+      )
+    ) {
       return "Hello, sir.";
     }
     console.log("here");
