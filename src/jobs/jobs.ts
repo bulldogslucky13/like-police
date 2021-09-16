@@ -10,10 +10,10 @@ class Jobs {
       );
       const favoritedIds: string[] =
         axiosResponse.data.response.message.favorited_by;
-      return arrayOfUserIdsToCheck.map((currentId) => {
-        if (!favoritedIds.includes(currentId)) return currentId;
-        return;
-      });
+      return arrayOfUserIdsToCheck.reduce((acc, currentId) => {
+        if (!favoritedIds.includes(currentId)) acc.push(currentId);
+        return acc;
+      }, []);
     } catch (error) {
       console.log(error.message);
     }
