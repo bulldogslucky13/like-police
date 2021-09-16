@@ -92,7 +92,6 @@ class LikePolice {
     ) {
       return "Hello, sir.";
     }
-    console.log("here");
     return this.confusedResponses[
       Math.round(Math.random() * (this.confusedResponses.length - 1))
     ];

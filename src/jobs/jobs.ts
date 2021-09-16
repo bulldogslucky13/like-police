@@ -3,6 +3,11 @@ import axios from "axios";
 import { arrayOfUserIdsToCheck, usersToCheck } from "../utils/users-to-check";
 
 class Jobs {
+  private foundMissingResponseText = [
+    "Oh hell nah. We're missing:",
+    "Too easy. Missing",
+  ];
+
   private checkWhoHasntLiked = async (groupId: string, messageId: string) => {
     try {
       const axiosResponse = await axios.get(
@@ -40,7 +45,12 @@ class Jobs {
         } else {
           const loci: number[][] = [];
           const userIds: string[] = [];
-          const responseText = "Oh hell nah. We're missing:";
+          const responseText =
+            this.foundMissingResponseText[
+              Math.round(
+                Math.random() * (this.foundMissingResponseText.length - 1)
+              )
+            ];
           let currentIndex = responseText.length;
           response.forEach((missingId) => {
             const nicknameLength = usersToCheck[missingId].nickname.length + 2;
