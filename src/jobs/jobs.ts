@@ -5,17 +5,15 @@ import { arrayOfUserIdsToCheck } from "../utils/users-to-check";
 class Jobs {
   private checkWhoHasntLiked = async (groupId: string, messageId: string) => {
     try {
-      console.log(
-        `https://api.groupme.com/v3/groups/${groupId}/messages/${messageId}?token=${process.env.GROUPME_SECRET}`
-      );
       const axiosResponse = await axios.get(
         `https://api.groupme.com/v3/groups/${groupId}/messages/${messageId}?token=${process.env.GROUPME_SECRET}`
       );
       const favoritedIds: string[] =
         axiosResponse.data.response.message.favorited_by;
-      const missingIds = arrayOfUserIdsToCheck.map((currentId) =>
-        favoritedIds.find(() => currentId)
-      );
+      const missingIds = arrayOfUserIdsToCheck.map((currentId) => {
+        if (!favoritedIds.includes(currentId)) return currentId;
+        return;
+      });
       console.log(missingIds);
     } catch (error) {
       console.log(error.message);

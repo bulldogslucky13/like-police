@@ -72,7 +72,7 @@ export const usersToCheck: Record<string, GroupMeUserCondensed> = {
     id: "683637659",
     name: "Atticus Kohler",
   },
-  "Roy Cofone": {
+  "69775503": {
     user_id: "69775503",
     nickname: "Roy Cofone",
     id: "683637662",
