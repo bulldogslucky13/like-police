@@ -38,9 +38,9 @@ class Jobs {
             text: "Looks like they did it this time, sir.",
           });
         } else {
-          let loci = [];
-          let userIds = [];
-          const responseText = "Oh hell nah. We're missing: ";
+          let loci: number[][] = [];
+          let userIds: string[] = [];
+          const responseText = "Oh hell nah. We're missing:";
           let currentIndex = responseText.length;
           response.forEach((missingId) => {
             const nicknameLength = usersToCheck[missingId].nickname.length;
@@ -51,11 +51,9 @@ class Jobs {
           axios.post(`https://api.groupme.com/v3/bots/post`, {
             bot_id: process.env.BOT_ID,
             text: `${responseText}${response.map(
-              (missingId) => `@${usersToCheck[missingId].nickname}, `
+              (missingId) => ` @${usersToCheck[missingId].nickname}`
             )}`,
-            //attachments: [
-            //       { loci: [[0, 12]], type: "mentions", user_ids: ["66562336"] },
-            //     ],
+            attachments: [{ loci, type: "mentions", user_ids: userIds }],
           });
         }
         console.log(`Ran a remind message for ${senderId}`);
