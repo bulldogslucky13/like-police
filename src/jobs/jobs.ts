@@ -44,13 +44,13 @@ class Jobs {
           let currentIndex = responseText.length;
           response.forEach((missingId) => {
             const nicknameLength = usersToCheck[missingId].nickname.length;
-            loci.push(currentIndex, [nicknameLength]);
+            loci.push([currentIndex, nicknameLength]);
             userIds.push(missingId);
-            currentIndex += nicknameLength;
+            currentIndex += nicknameLength + 2;
           });
           axios.post(`https://api.groupme.com/v3/bots/post`, {
             bot_id: process.env.BOT_ID,
-            text: `Oh hell nah. We're missing: ${response.map(
+            text: `${responseText}${response.map(
               (missingId) => `@${usersToCheck[missingId].nickname}, `
             )}`,
             //attachments: [
