@@ -5,7 +5,7 @@ export type GroupMeUserCondensed = {
   name: string;
 };
 
-const usersToCheck: Record<string, GroupMeUserCondensed> = {
+export const usersToCheck: Record<string, GroupMeUserCondensed> = {
   "52669412": {
     user_id: "52669412",
     nickname: "Carson Cox",

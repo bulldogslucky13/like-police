@@ -1,5 +1,6 @@
 import schedule from "node-schedule";
 import axios from "axios";
+import { arrayOfUserIdsToCheck } from "../utils/users-to-check";
 
 class Jobs {
   private checkWhoHasntLiked = async (groupId: string, messageId: string) => {
@@ -10,7 +11,12 @@ class Jobs {
       const axiosResponse = await axios.get(
         `https://api.groupme.com/v3/groups/${groupId}/messages/${messageId}?token=${process.env.GROUPME_SECRET}`
       );
-      return axiosResponse.data;
+      const favoritedIds: string[] =
+        axiosResponse.data.response.message.favorited_by;
+      const missingIds = arrayOfUserIdsToCheck.map((currentId) =>
+        favoritedIds.find(() => currentId)
+      );
+      console.log(missingIds);
     } catch (error) {
       console.log(error.message);
     }
