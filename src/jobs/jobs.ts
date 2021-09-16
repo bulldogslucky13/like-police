@@ -5,7 +5,7 @@ class Jobs {
   private checkWhoHasntLiked = async (messageId: string) => {
     try {
       const axiosResponse = await axios.get(
-        `https://api.groupme.com/v3/groups/70651082/messages/${messageId}?token=A9ppO6pZFpWtR9CoEGU2GCeCwk2vTG9oJRzt6xIA`
+        `https://api.groupme.com/v3/groups/70651082/messages/${messageId}?token=${process.env.GROUPME_SECRET}`
       );
       return axiosResponse;
     } catch (error) {
