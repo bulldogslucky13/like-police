@@ -296,4 +296,9 @@ export const usersToCheck: Record<string, GroupMeUserCondensed> = {
   },
 };
 
-export const arrayOfUserIdsToCheck = Object.keys(usersToCheck);
+export const arrayOfUserIdsToCheck = Object.values(usersToCheck).map(
+  (user) => ({
+    user_id: user.user_id,
+    user: user.nickname,
+  })
+);
