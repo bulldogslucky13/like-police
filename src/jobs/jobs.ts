@@ -1,13 +1,9 @@
 import schedule from "node-schedule";
 import axios from "axios";
 import { arrayOfUserIdsToCheck, usersToCheck } from "../utils/users-to-check";
+import { foundMissingResponseText } from "../utils/responses";
 
 class Jobs {
-  private foundMissingResponseText = [
-    "Oh hell nah. We're missing:",
-    "Too easy. Missing",
-  ];
-
   private checkWhoHasntLiked = async (groupId: string, messageId: string) => {
     try {
       const axiosResponse = await axios.get(
@@ -46,10 +42,8 @@ class Jobs {
           const loci: number[][] = [];
           const userIds: string[] = [];
           const responseText =
-            this.foundMissingResponseText[
-              Math.round(
-                Math.random() * (this.foundMissingResponseText.length - 1)
-              )
+            foundMissingResponseText[
+              Math.round(Math.random() * (foundMissingResponseText.length - 1))
             ];
           let currentIndex = responseText.length;
           response.forEach((missingId) => {

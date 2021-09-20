@@ -2,6 +2,7 @@ import axios from "axios";
 import dotenv from "dotenv";
 import moment from "moment";
 import { sendingJobs } from "./jobs/jobs";
+import { confusedResponses, peasantResponse } from "./utils/responses";
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -9,20 +10,6 @@ if (process.env.NODE_ENV !== "production") {
 
 class LikePolice {
   private approvedSenders = process.env.APPROVED_SENDERS.split(",");
-
-  private confusedResponses = [
-    "Come again, sir?",
-    "I'm sorry?",
-    "Sorry, I don't know that command.",
-  ];
-
-  private peasantResponse = [
-    "Not sure who you think you are but leave me alone.",
-    "Leave me alone, peasant.",
-    "Someone come get this guy. I'm not sure who he thinks he is...",
-    "Lol. Good one. Who is that?",
-    "Fuck off",
-  ];
 
   private scheduleReminder = (
     senderId: string,
@@ -53,8 +40,8 @@ class LikePolice {
       if (!this.approvedSenders.includes(senderId)) {
         await axios.post(`https://api.groupme.com/v3/bots/post`, {
           bot_id: process.env.BOT_ID,
-          text: this.peasantResponse[
-            Math.round(Math.random() * (this.peasantResponse.length - 1))
+          text: peasantResponse[
+            Math.round(Math.random() * (peasantResponse.length - 1))
           ],
         });
         return false;
@@ -92,8 +79,8 @@ class LikePolice {
     ) {
       return "Hello, sir.";
     }
-    return this.confusedResponses[
-      Math.round(Math.random() * (this.confusedResponses.length - 1))
+    return confusedResponses[
+      Math.round(Math.random() * (confusedResponses.length - 1))
     ];
   };
 }
