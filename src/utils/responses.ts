@@ -7,6 +7,7 @@ export const confusedResponses = [
 export const foundMissingResponseText = [
   "Oh hell nah. We're missing:",
   "Too easy. Missing",
+  "Dumb worms:",
 ];
 
 export const peasantResponse = [
