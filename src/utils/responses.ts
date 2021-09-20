@@ -25,5 +25,5 @@ export const peasantResponse = [
   "Cool! Fuck off.",
   "Goest and fucketh thyself",
   "Let's play a game of fuck off. You go first",
-  "I would say you deserve the worst this world has to offer but it looks like your parent's genes beat me to it.",
+  "I would say you deserve the worst this world has to offer but it looks like your parents' genes beat me to it.",
 ];
